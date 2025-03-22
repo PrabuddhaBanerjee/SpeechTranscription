@@ -1,14 +1,14 @@
-# Speech2Text - Streamlit Application
+# SpeechTranscription - Streamlit Application
 Healthcare Translation Web App with Generative AI
 
 ## Overview
-The **Speech2Text** project is a Streamlit-based web application that converts speech into text using state-of-the-art speech recognition models. The application allows users to upload audio files, record live speech, and transcribe it into text in real time.
+The **SpeechTranscription** project is a Streamlit-based web application that converts speech into text using state-of-the-art speech recognition models. The application allows users to upload audio files, record live speech, and transcribe it into text in real time.
 
 ## Features
-- **Upload Audio Files**: Supports common audio formats (.wav, .mp3, .flac, etc.).
+- **Playback Audio Files**: Playback common audio format (.mp3) after transcription.
 - **Live Speech Recording**: Record audio directly through the web interface.
 - **Automatic Speech Recognition (ASR)**: Uses a robust speech-to-text model for transcription.
-- **Multilingual Support**: Recognizes speech in multiple languages (if supported by the ASR model).
+- **Multilingual Support**: Recognizes speech in multiple languages.
 - **User-friendly UI**: Built with Streamlit for easy interaction.
 
 ## Installation
@@ -22,8 +22,8 @@ Ensure you have the following installed:
 
 ### Clone the Repository
 ```bash
-git clone https://github.com/PrabuddhaBanerjee/speech2Text.git
-cd speech2Text
+git clone https://github.com/PrabuddhaBanerjee/SpeechTranscription.git
+cd SpeechTranscription
 ```
 
 ### Create and Activate Virtual Environment (Optional)
@@ -44,10 +44,12 @@ streamlit run app.py
 ```
 
 ### Application Interface
-1. **Upload Audio File**: Select an audio file for transcription.
-2. **Live Recording**: Click the 'Record' button to capture speech and transcribe.
-3. **View Transcription**: The text output appears on the screen after processing.
-4. **Download Transcription**: Save the transcribed text as a file.
+1. **Speakers Language**: Select the choice of language of Speaker
+2. **Translated Language**: Select the choice of language for Transcription
+3. **Start Listening**: Click the 'Start Listening' button to capture speech and transcribe.
+4. **Stop Listening**: Click the 'Stop Listening' button to stop capturing speech, to save the last transcribe and to play the last trancribe.
+5. **Playback**: To save the transcribed audio as a file and play it back.
+6. **View Transcription**: The text output appears on the screen after processing.
 
 ## Configuration
 - Modify the `config.py` file (if present) to set parameters like language preference, model selection, and output format.
@@ -56,16 +58,17 @@ streamlit run app.py
 The `requirements.txt` file includes necessary libraries such as:
 ```txt
 streamlit
-speechrecognition
-pydub
-openai-whisper (if used for ASR)
+websockets
+asyncio
+googletrans
+speech_recognition
+gtts
+pipwin
+assemblyai
 ```
 
 ## Deployment
-You can deploy the application on platforms like Streamlit Cloud, Heroku, or AWS. For deployment on Streamlit Cloud:
-1. Push your changes to GitHub.
-2. Go to [Streamlit Cloud](https://share.streamlit.io/).
-3. Connect your repository and deploy.
+The application has been deployed on platform render.com for utilization.
 
 ## Contributing
 Contributions are welcome! To contribute:
