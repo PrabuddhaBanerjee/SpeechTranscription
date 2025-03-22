@@ -35,46 +35,69 @@ stream = p.open(
 
 
 def start_listening():
+	"""
+	start_listening(): Start Listening method is utilsed to activate the listening functionality of app
+	and setting Playback button to reset
+	"""
 	st.session_state['run'] = True
 	st.session_state.play_back = False
 
 def stop_listening():
+	"""
+	stop_listening(): Stop Listening method is utilsed to deactivate the listening functionality of app
+	momentarily and setting Playback button to active and playing the last transcribed text
+	"""
 	st.session_state['run'] = False
 	st.session_state.play_back = True
 	playback('current_transcript.mp3')
 
 def start_playback():
-	st.write("Button CLicked")
+	"""
+	start_playback(): Start Playback method is utilsed to deactivate the listening functionality of app
+	momentarily and setting Playback button to active and playing the all transcribed text.
+	"""
 	st.session_state['run'] = False
 	st.session_state.play_back = True
 	playback('transcript.mp3')
 		
 st.title('Healthcare Translation Web App with Generative AI')
-st.markdown('_Currently this application is available to translate from English to French, Spanish, Italian and Chinese(Simplified) only._')
+st.markdown('_Currently this application is available to translate speech English, French, Spanish, Italian and Hindi only._')
+
+# Creating Columns
 start, stop = st.columns(2)
+
+# Dropdown for Input from Speaker to specify their language of conversation
 st.markdown('Speakers Language')
 input_options = ["English", "Spanish", "French","Italian", "Hindi"]
 selected_input_option = st.selectbox("Select an option:",input_options)
 
+# Dropdown for Input from Speaker to specify their output of conversation
 st.markdown('Translated Language')
 output_options = ["Translate to English", "Translate to Spanish", "Translate to French","Translate to Italian", "Translate to Hindi"]
 selected_output_option = st.selectbox("Select an option:",output_options)
 
+# Initializing Start Listening Button
 start.button('Start listening', on_click=start_listening)
 
+# Initializing Stop Listening Button
 stop.button('Stop listening', on_click=stop_listening)
 
 if 'play_back' not in st.session_state:
     st.session_state.play_back = False
 
+# Assembly AI endpoint
 URL = "wss://api.assemblyai.com/v2/realtime/ws?sample_rate=16000"
 
-src_lang = ''
-dest_lang = ''
+# Initializing source input language and destination language.
+src_lang, dest_lang = ''
+
 # Transcription of real time audio
 recon = sr.Recognizer()
 
 async def send_receive():
+	"""
+	send_receive(): This function is called when the connection has been established.
+	"""
 	global dest_lang
 	global src_lang
 	print(f'Connecting websocket to url ${URL}')
@@ -94,6 +117,9 @@ async def send_receive():
 		print("Sending messages ...")
 
 		async def send():
+			"""
+			send(): This function is called when the connection has been established and is ready to send data.
+			"""
 			while st.session_state['run']:
 				if selected_input_option != 'English':
 					with sr.Microphone() as source:
@@ -163,6 +189,9 @@ async def send_receive():
 				r = await asyncio.sleep(0.01)
 
 		async def receive():
+			"""
+			recieve(): This function is called when the connection has been established and is ready to recieve data.
+			"""
 			while st.session_state['run']:
 					try:
 						result_str = await _ws.recv()
@@ -238,9 +267,13 @@ async def send_receive():
 
 st.markdown('---')
 
+# Initializing Playback Button
 st.button('Playback', on_click=start_playback)
 
 def playback(file):
+	"""
+	playback(): This function is called when the playback option is called to play the transcripts.
+	"""
 	if selected_output_option == 'Translate to Spanish':
 		dest_lang = 'es'
 	elif selected_output_option == 'Translate to English':
@@ -254,7 +287,7 @@ def playback(file):
 	elif selected_output_option == 'Translate to Chinese(simplified)':
 		dest_lang = 'zh-cn'
 		
-	print('dest_lang',file)
+	# print('dest_lang',file)
 	os.system("afplay " + file)
 	st.session_state.play_back = False
 	f = open("transcript.txt", "r")
