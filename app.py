@@ -7,9 +7,11 @@ from configure import auth_key
 from googletrans import Translator
 from gtts import gTTS
 import os
+os.system("pipwin install pyaudio")
+import pyaudio
 import assemblyai as aai
 import speech_recognition as sr
-import pyaudio
+
 
 if 'text' not in st.session_state:
 	st.session_state['text'] = 'Listening...'
