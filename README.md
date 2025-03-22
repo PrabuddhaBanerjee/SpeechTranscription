@@ -2,7 +2,7 @@
 Healthcare Translation Web App with Generative AI
 
 ## Overview
-The **SpeechTranscription** project is a Streamlit-based web application that converts speech into text using state-of-the-art speech recognition models. The application allows users to upload audio files, record live speech, and transcribe it into text in real time.
+The **SpeechTranscription** project is a Streamlit-based a great web application whose interface is accessible in mobile ui as well. This web app converts speech into text using state-of-the-art speech recognition models. The application allows users to upload audio files, record live speech, and transcribe it into text in real time.
 
 ## Features
 - **Playback Audio Files**: Playback common audio format (.mp3) after transcription.
